@@ -1,24 +1,228 @@
-.App {
-  text-align: center;
+#App {
+  position:relative;
+  width:100%; height:100%;
+  background: url('./images/main_bg.jpg') no-repeat center 100%;
+}
+#App:before {
+  content:''; position:absolute; top:0; left:0; width:100%; height:100%;
+  background:#F24C38; opacity:0.7;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+.main-wrap {
+  overflow:hidden;
+  position:absolute; top:50%; left:50%;
+  transform:translate(-50%, -50%);
+  max-width:1000px; width:100%;
+  max-height:600px; height:100%;
+  background:rgba(242,76,56,0.8);
+  box-shadow:5px 5px 10px rgba(136,43,32,0.6);
 }
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+.main-wrap:hover {}
+
+.main-wrap .header {float:left; display:inline-block; padding:30px; width:50%; color:#fff; box-sizing:border-box;}
+.main-wrap .header h1 {font-size:82px; font-family:"TmonMonsori"; text-shadow:0 3px 3px rgba(121,38,28,0.8);}
+.main-wrap .header p {margin-top:10px; font-size:22px; font-family:"NanumBarunGothicBold"; text-shadow:0 2px 0 rgba(121,38,28,0.7);}
+
+.main-wrap .setting-box {display:inline-block; padding:30px; width:50%; color:#fff; box-sizing:border-box;}
+.main-wrap .setting-box .tabs > ul {overflow:hidden; margin-bottom:50px;}
+.main-wrap .setting-box .tabs > ul li {position:relative; float:left; width:50%; height:60px; line-height:95px; text-align:center; font-size:12px; border-bottom:2px solid rgba(255,255,255,0.8); cursor:pointer;}
+.main-wrap .setting-box .tabs > ul li:first-child {background: url('./images/location_white.png') no-repeat center 5px; background-size:30px auto;}
+.main-wrap .setting-box .tabs > ul li:last-child {background: url('./images/bus_white.png') no-repeat center 5px; background-size:30px auto;}
+.main-wrap .setting-box .tabs > ul li:after {display:none; content:''; position:absolute; top:0; left:0; width:100%; height:100%; background:rgba(255,255,255,0.2);}
+.main-wrap .setting-box .tabs > ul li.active:after {display:block;}
+.main-wrap .setting-box .location {}
+.main-wrap .setting-box form {font-family:"NanumBarunGothicBold";}
+.main-wrap .setting-box form input {padding:12px 15px; width:100%; background:transparent; border: 1px solid rgba(255,255,255,0.8); color: #fff; font-size:16px; outline:none; box-sizing:border-box;}
+.main-wrap .setting-box form input[type*="submit"] {margin-top:50px; transition:all 1s ease;}
+.main-wrap .setting-box form input[type*="submit"]:hover {background:#fff; color:#333; transition:all 1s ease;}
+.main-wrap .setting-box .location form .my-location {display:inline-block; margin:10px 0 20px; cursor:pointer;}
+.main-wrap .setting-box .location form .my-location img {margin-right:5px; width:20px; height:auto;}
+.main-wrap .setting-box .location form .my-location span {}
+
+
+.main-wrap .setting-box .bus {}
+
+
+
+
+
+.select{
+  position: relative;
+  display: block;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 325px;
+  color: #cccccc;
+  vertical-align: middle;
+  text-align: left;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+.is-open .placeholder:after{
+  content: '\f077';
+}
+.is-open .select-ul{
+  display: block;
+}
+.placeholder{
+  position: relative;
+  display: block;
+  z-index: 1;
+  cursor: pointer;
+  overflow: hidden;
+  padding: 12px 50px 12px 15px;
+  width:100%;
+  background:transparent;
+  border: 1px solid rgba(255,255,255,0.8);
+  color: #fff;
+  font-size:16px;
+  cursor: default;
+  box-sizing: border-box;
+}
+.placeholder:after{
+  position: absolute;
+   right: 1em;
+   top: 50%;
+   transform: translateY(-50%);
+   font-family: 'FontAwesome';
+   content: '\f078';
+   z-index: 10;
 }
 
-.App-intro {
-  font-size: large;
+.select-ul{
+  display: none;
+  position: absolute;
+  overflow: hidden;
+  width: 100%;
+  background: #fff;
+  border-radius: 2px;
+  top: 100%;
+  left: 0;
+  list-style: none;
+  margin: 5px 0 0 0;
+  padding: 0;
+  z-index: 100;
+}
+.select-li{
+  display: block;
+  text-align: left;
+  padding: 0.8em 1em 0.8em 1em;
+  color: #999;
+  cursor: pointer;
+}
+.select-li:hover{
+  background: #4ebbf0;
+  color: #fff;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.Dropdown-root {
+  position: relative;
 }
+
+.Dropdown-control {
+  overflow: hidden;
+  position: relative;
+  padding: 12px 50px 12px 15px;
+  width:100%;
+  background:transparent;
+  border: 1px solid rgba(255,255,255,0.8);
+  color: #fff;
+  font-size:16px;
+  cursor: default;
+  box-sizing: border-box;
+}
+
+/*select,*/
+.Dropdown-arrow {
+  content: '';
+  display: block;
+  position: absolute; top: 18px; right: 15px;
+  width: 0; height: 0;
+  border-color: #fff transparent transparent;
+  border-style: solid;
+  border-width: 7px 7px 0;
+}
+
+.is-open .Dropdown-arrow {
+  border-color: transparent transparent #fff;
+  border-width: 0 7px 7px;
+}
+
+.Dropdown-menu {
+  overflow-y: auto;
+  position: absolute; top: 100%;
+  margin-top: -1px;
+  width: 100%;
+  background:#fff;
+  border: 1px solid rgba(255,255,255,0.8);
+  box-sizing: border-box;
+  z-index: 1000;
+  -webkit-overflow-scrolling: touch;
+}
+
+.Dropdown-menu .Dropdown-group > .Dropdown-title {
+  padding: 12px 50px 12px 15px;
+  color: #fff;
+}
+
+
+.Dropdown-option {
+  display: block;
+  padding: 12px 50px 12px 15px;
+  color: #333;
+  font-size:16px;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+
+.Dropdown-option:hover {
+  background:#eee;
+}
+
+
+.Dropdown-option.is-selected {
+  background-color: #f2f9fc;
+  color: #333;
+}
+
+.Dropdown-noresults {
+  box-sizing: border-box;
+  color: #ccc;
+  cursor: default;
+  display: block;
+  padding: 8px 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**/
