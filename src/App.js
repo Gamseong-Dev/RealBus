@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import * as actions from './actions'
 import SelectBox from './SelectBox'
+import { getUsefulContents } from "./file";
 import './App.css';
 
 // const currentPage = 1;
@@ -9,7 +10,9 @@ import './App.css';
 // const confmKey = 'U01TX0FVVEgyMDE3MDEyMzA5MzE0NDE4NTA0';
 // const searchUrl = 'http://www.juso.go.kr/addrlink/addrLinkApi.do';
 
-
+getUsefulContents("http://dmaps.daum.net/map_js_init/postcode.v2.js", data => {
+  console.log(data);
+})
 
 class App extends Component {
   constructor(props){
@@ -62,6 +65,11 @@ class App extends Component {
       navigator.geolocation.getCurrentPosition(success, error);
   }
   render() {
+    // let daumJuso =  new daum.Postcode({
+    //     oncomplete: function(data) {
+    //         console.log(data)
+    //     }
+    // }).open();
     return (
       <div id="App">
         <div className="main-wrap">
@@ -69,6 +77,7 @@ class App extends Component {
             <h1>버스, <br />어딨니?!</h1>
             <p>실시간으로 버스 이동을 확인하는 <br />버스 서비스</p>
           </div>
+          
           <div className="setting-box">
             <Tabs>
               <div className="location" name="장소 설정">
