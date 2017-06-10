@@ -1,21 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import reducers from './RootReducer';
+import reduxThunk from 'redux-thunk'
 import registerServiceWorker from './registerServiceWorker';
 import { AppContainer } from 'react-hot-loader';
+import App from './App';
 import './index.css';
 
 
-
+const createStoreWithMiddleware = applyMiddleware(reduxThunk)(createStore);
+const store = createStoreWithMiddleware(reducers, window.devToolsExtension ? window.devToolsExtension() : f => f)
 
 const render = (Component) => {
   ReactDOM.render(
     <AppContainer>
-      {/* <MuiThemeProvider>
-        <Provider store={store}> */}
-          <Component/>
-        {/* </Provider>
-      </MuiThemeProvider> */}
+      <Provider store={store}>
+        <Component/>
+      </Provider>
     </AppContainer>,
     document.getElementById('root')
   );
