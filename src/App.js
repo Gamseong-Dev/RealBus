@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import * as actions from './actions'
 import SelectBox from './SelectBox'
-import { getUsefulContents } from "./file";
 import './App.css';
 
 // const currentPage = 1;
@@ -10,9 +9,6 @@ import './App.css';
 // const confmKey = 'U01TX0FVVEgyMDE3MDEyMzA5MzE0NDE4NTA0';
 // const searchUrl = 'http://www.juso.go.kr/addrlink/addrLinkApi.do';
 
-getUsefulContents("http://dmaps.daum.net/map_js_init/postcode.v2.js", data => {
-  console.log(data);
-})
 
 class App extends Component {
   constructor(props){
@@ -21,10 +17,16 @@ class App extends Component {
     this.state={
       latitude: '',
       longitude: '',
-      geoError: ''
+      geoError: '',
+      daum: {
+        address: ''
+      },
+      range: ''
     }
     this.handleGetGeo = this.handleGetGeo.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.handelDaumApi = this.handelDaumApi.bind(this)
+    this.handleSetRange = this.handleSetRange.bind(this)
   }
   componentDidMount() {
     window.onload = this.fullSize;
@@ -39,6 +41,7 @@ class App extends Component {
     e.preventDefault()
     console.log("eveeee")
   }
+
   handleGetGeo() {
     let _this = this;
     console.log("시작")
@@ -64,12 +67,16 @@ class App extends Component {
       };
       navigator.geolocation.getCurrentPosition(success, error);
   }
+  handelDaumApi(){
+    let _this = this;
+    window.openDaumPostcode(function(data) {
+      _this.setState({daum: {...data}})
+    });
+  }
+  handleSetRange(range){
+    this.setState({range})
+  }
   render() {
-    // let daumJuso =  new daum.Postcode({
-    //     oncomplete: function(data) {
-    //         console.log(data)
-    //     }
-    // }).open();
     return (
       <div id="App">
         <div className="main-wrap">
@@ -77,17 +84,20 @@ class App extends Component {
             <h1>버스, <br />어딨니?!</h1>
             <p>실시간으로 버스 이동을 확인하는 <br />버스 서비스</p>
           </div>
-          
           <div className="setting-box">
             <Tabs>
               <div className="location" name="장소 설정">
                 <form onSubmit={this.handleSubmit}>
-                  <input type="search" name="locationsearch" placeholder="주소 API 써야하는거 아닌가?" />
+                  <div className="search-box">
+                    <input type="search" id="search" name="locationsearch" placeholder="예) 강남대로94길 13, 역삼동 818-12" value={this.state.daum.address} readOnly />
+                    <div className="search-btn" onClick={this.handelDaumApi}><img src={require("./images/search_white.png")} alt="search" /></div>
+                  </div>
+                  <div id="juso"></div>
                   <div className="my-location">
                     <img src={require('./images/mylocation_white.png')} alt="현재위치로 설정하기" />
                     <span onClick={this.handleGetGeo}>현재위치로 설정하기</span>
                   </div>
-                  <SelectBox />
+                  <SelectBox handleSetRange={this.handleSetRange}/>
                   <input type="submit" value="설정 완료하기" />
                 </form>
               </div>
