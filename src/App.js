@@ -82,14 +82,14 @@ class App extends Component {
         <div className="main-wrap">
           <div className="header">
             <h1>버스, <br />어딨니?!</h1>
-            <p>실시간으로 버스 이동을 확인하는 <br />버스 서비스</p>
+            <p>실시간으로 버스 위치를 확인하는 <br />버스 서비스</p>
           </div>
           <div className="setting-box">
             <Tabs>
               <div className="location" name="장소 설정">
                 <form onSubmit={this.handleSubmit}>
                   <div className="search-box">
-                    <input type="search" id="search" name="locationsearch" placeholder="예) 강남대로94길 13, 역삼동 818-12" value={this.state.daum.address} readOnly />
+                    <input type="search" id="search" name="locationsearch" onClick={this.handelDaumApi} placeholder="예) 강남대로94길 13, 역삼동 818-12" value={this.state.daum.address} readOnly />
                     <div className="search-btn" onClick={this.handelDaumApi}><img src={require("./images/search_white.png")} alt="search" /></div>
                   </div>
                   <div id="juso"></div>
@@ -100,12 +100,17 @@ class App extends Component {
                   <SelectBox handleSetRange={this.handleSetRange}/>
                   <input type="submit" value="설정 완료하기" />
                 </form>
+                <p className="desc">※ 현재 위치 또는 사용자가 지정한 위치를 중심으로 반경 1 ~ 5km 내에 있는 실시간 버스 위치를 보여줍니다.</p>
               </div>
               <div className="bus" name="버스 설정">
                 <form action="" method="">
-                  <input type="search" name="bussearch" placeholder="버스 노선번호 입력" />
+                  <div className="search-box">
+                    <input type="search" name="bussearch" placeholder="버스 노선번호 입력" value="" readOnly />
+                    <div className="search-btn"><img src={require("./images/search_white.png")} alt="search" /></div>
+                  </div>
                   <input type="submit" value="설정 완료하기" />
                 </form>
+                <p className="desc">※ 조회한 버스 노선 번호의 실시간 버스 위치를 보여줍니다.</p>
               </div>
             </Tabs>
           </div>
@@ -133,7 +138,7 @@ class Tabs extends Component {
   render() {
     return (
       <div className="tabs">
-        <ul>
+        <ul className="tabs-ul">
           {this.props.children.map((child, i) => {
             return <li
                       key={i}

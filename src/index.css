@@ -42,6 +42,10 @@ label{cursor:pointer;}
 
 /*etc*/
 ::selection {background:#000; color:#fff;}
+::-webkit-input-placeholder {color:#fff;}
+::-moz-input-placeholder {color:#fff;}
+::-ms-input-placeholder {color:#fff;}
+::-moz-placeholder {color:#fff;}
 
 
 /*font family*/
