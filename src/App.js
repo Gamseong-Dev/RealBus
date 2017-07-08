@@ -59,6 +59,7 @@ class App extends Component {
         })
         console.log(_this.state)
         _this.props.getUserGeo(position.coords.longitude, position.coords.latitude)
+
       };
 
       function error() {
@@ -81,8 +82,8 @@ class App extends Component {
       <div id="App">
         <div className="main-wrap">
           <div className="header">
-            <h1>버스, <br />어딨니?!</h1>
-            <p>실시간으로 버스 위치를 확인하는 <br />버스 서비스</p>
+            <h1><span>버스, </span><span>어딨니?!</span></h1>
+            <p><span>실시간으로 버스 위치를 확인하는 </span><span>버스 서비스</span></p>
           </div>
           <div className="setting-box">
             <Tabs>
